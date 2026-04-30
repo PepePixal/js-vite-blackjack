@@ -26,8 +26,8 @@ const miModulo = (() => {
 
     // deck - baraja de cartas
     let deck        = [];
-    // tipos - palos de la baraja - treboles, diamantes, corazones, picas
 
+    // tipos - palos de la baraja - treboles, diamantes, corazones, picas
     const tipos     = [ 'C', 'D', 'H', 'S' ],
        // especiales - figuras de la baraja, As J, Queen, King
           especiales   = [ 'A', 'J', 'Q', 'K' ];
@@ -89,9 +89,11 @@ const miModulo = (() => {
         //muestra los puntos en la primera etiqueta <small> del html
         puntosHTML[0].innerHTML = puntosJugador;
 
-        // llama función que crea y muestra la carta en el html,
-        // enviando la carta a crear y el div donde mostrarla
-        crearCarta( carta, divCartasJugadores, 0);
+        // llama func que crea el nombre de la imagen de la carta 
+        // enviando el nombre de la carta
+        const imgCarta = crearCarta( carta );
+        // muestra la carta en el div correspondiente, según el indice
+        divCartasJugadores[0].append( imgCarta );
 
         //validar la acumulación de puntos del jugador, máximo  21
         if ( puntosJugador > 21 ) {
@@ -122,7 +124,7 @@ const miModulo = (() => {
 
         btnPedir.disabled = true;
         btnDetener.disabled = true;
-        console.log(puntosJugador);
+
         turnoComputadora( puntosJugador, deck, puntosHTML[1], divCartasJugadores );
 
     });

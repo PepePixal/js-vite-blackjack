@@ -34,9 +34,11 @@ export const turnoComputadora = ( puntosMinimos, deck, puntosHTML, divCartasJuga
         //muestra los puntos en la segunda etiqueta <small> del html
         puntosHTML.innerHTML = puntosComputadora;
 
-        // llama función que crea y muestra la carta en el html,
-        // enviando la carta a crear, el elemento html y el indice div donde mostrarla
-        crearCarta( carta, divCartasJugadores, 1);
+        // llama función que crea el nombre de la imagen de la carta,
+        // enviando el nombre de la carta
+        const imgCarta = crearCarta( carta );
+        // inserta la imgCarta, en el div del html, según el índice en crudo
+        divCartasJugadores[1].append(imgCarta);
 
     } while ( (puntosComputadora <= puntosMinimos) && (puntosMinimos <= 21));
     
