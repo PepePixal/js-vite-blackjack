@@ -3,7 +3,7 @@
 import _ from 'underscore';
 
 //importación individual  
-import { crearDeck, pedirCarta, valorCarta } from './usecases';
+import { crearDeck, pedirCarta, valorCarta, crearCarta } from './usecases';
 
 /* los nombres de las imágenes de las cartas constan de números / figuras:
 del 2 al 10 / A (as), J, Q (queen), K (king), y de letras relacionadas con los palos: 
@@ -70,21 +70,6 @@ const miModulo = (() => {
     };
     
 
-    //** Crear la carta y mostrarla en el html */
-    // la func recibe el nombre de la carta y
-    // el indice del arreglo que contiene los div con class="divCarta" correlativos, del html 
-
-    const crearCarta = ( carta, indiceDivCarta ) => {
-        // crear nuevo elemento html img para la carta
-        const imgCarta = document.createElement('img');
-        // agregar el src de la carta, con el nombre de la carta dinamicamente
-        // ` ` para poder insertar código js ${}
-        imgCarta.src = `assets/cartas/${ carta }.png`;
-        // agrega clase con estilo css para la carta. El efecto abanico lo hace el css.
-        imgCarta.classList.add('carta');
-        // inserta la imgCarta en la referencia al div del html
-        divCartasJugadores[indiceDivCarta].append(imgCarta);
-    };
 
     //** Determinar ganador y mostrar alerts */
     //Si el jugdor pasa de 21: computadora gana,
@@ -134,7 +119,7 @@ const miModulo = (() => {
 
             // llama función que crea y muestra la carta en el html,
             // enviando la carta a crear y el div donde mostrarla
-            crearCarta( carta, 1);
+            crearCarta( carta, divCartasJugadores, 1);
 
         } while ( (puntosComputadora <= puntosMinimos) && (puntosMinimos <= 21));
        
@@ -157,7 +142,7 @@ const miModulo = (() => {
 
         // llama función que crea y muestra la carta en el html,
         // enviando la carta a crear y el div donde mostrarla
-        crearCarta( carta, 0);
+        crearCarta( carta, divCartasJugadores, 0);
 
         //validar la acumulación de puntos del jugador, máximo  21
         if ( puntosJugador > 21 ) {
@@ -203,7 +188,7 @@ const miModulo = (() => {
         
     });
 
-
+    
 })();
 
 
