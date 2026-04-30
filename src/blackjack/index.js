@@ -9,6 +9,7 @@ import {
     valorCarta,
     crearCarta,
     determinarGanador,
+    turnoComputadora,
 } from './usecases';
 
 /* los nombres de las imágenes de las cartas constan de números / figuras:
@@ -75,37 +76,7 @@ const miModulo = (() => {
         btnDetener.disabled = false;
     };
     
-
-
   
-
-    //** Turno de la computadora **/
-    // El turno o rutina de la computadora arranca cuando:
-    // El jugdor pierde porque se pasa de 21, o pulsa el botón Detener (se planta)
-
-    // El turno de la compu se ejecuta al menos, una primera vez (do) y
-    // mientras (while) los puntos de la Computadora sean < que los puntos del Jugador,
-    // recibidos en (puntosMinimos) y los puntos del Jugador (puntosMinimos) sean <= a 21.
-    const turnoComputadora = ( puntosMinimos ) => {
-        do { 
-            // obtiene carta de la baraja desordenada
-            const carta = pedirCarta( deck );
-            // acumula los puntos de las cartas que va pidiendo
-            puntosComputadora = puntosComputadora + valorCarta('carta');
-            //muestra los puntos en la segunda etiqueta <small> del html
-            puntosHTML[1].innerHTML = puntosComputadora;
-
-            // llama función que crea y muestra la carta en el html,
-            // enviando la carta a crear y el div donde mostrarla
-            crearCarta( carta, divCartasJugadores, 1);
-
-        } while ( (puntosComputadora <= puntosMinimos) && (puntosMinimos <= 21));
-       
-        // llama func determinarGanador(), enviando puntos
-        determinarGanador( puntosMinimos, puntosComputadora );
-    };
-
-
     //** Evento Boton Pedir Carta Jugador y Mostrar puntos y carta en el html */
 
     // aplica evento escuchar, click, al elemento btnPedir y la función que ejecutará
@@ -128,16 +99,16 @@ const miModulo = (() => {
             btnPedir.disabled = true;
             // y bloquear el botón Detener
             btnDetener.disabled = true;
-            // llamar func turnoComputadora() enviando los puntos del jugador
-            turnoComputadora( puntosJugador );
+            // llamar func turnoComputadora() enviando argumentos
+            turnoComputadora( puntosJugador, deck, puntosHTML[1], divCartasJugadores );
             
         } else if ( puntosJugador === 21) {
             // si es === 21, bloquear botón pedir carta
             btnPedir.disabled = true;
             // y bloquear el botón Detener
             btnDetener.disabled = true;
-            // llamar func turnoComputadora() enviando los puntos del jugador
-            turnoComputadora( puntosJugador );
+            // llamar func turnoComputadora() enviando argumentos
+            turnoComputadora( puntosJugador, deck, puntosHTML[1], divCartasJugadores );
         };
 
     });
@@ -151,7 +122,8 @@ const miModulo = (() => {
 
         btnPedir.disabled = true;
         btnDetener.disabled = true;
-        turnoComputadora( puntosJugador );
+        console.log(puntosJugador);
+        turnoComputadora( puntosJugador, deck, puntosHTML[1], divCartasJugadores );
 
     });
 
